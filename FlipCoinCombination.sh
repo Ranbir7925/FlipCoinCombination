@@ -44,6 +44,3 @@ then
 	read choice
 	flipCoin $num_of_flips $choice
 fi
-
-echo - "Heads tails: ${!cointDict[@]}
-
