@@ -34,6 +34,26 @@ function calculatePercentage() {
         done
         echo -e "\nHeads Tails: ${!coinDict[@]}"
         echo -e "\nPercentage: ${coinDict[@]}"
+
+			length=${#coinDict[@]} 
+			for((i=0;i<=$length-1;i++))
+			do
+				for ((j=0;j<=$(($length-1-$i));j++))
+					do
+						if [[ ${coinDict[$((j))]} -gt ${coinDict[j+1]} ]]
+						then
+							temp=${coinDict[$((j))]}
+							coinDict[$((j))]=${coinDict[j+1]}
+							coinDict[$j+1]=$temp
+						fi
+					done
+			done
+		echo -e "greatest"
+		echo ${!coinDict[@]}
+		echo ${coinDict[@]}
+
+
+
 }
 
 read -p "Dou you want to Flip (y/n)?: " input
