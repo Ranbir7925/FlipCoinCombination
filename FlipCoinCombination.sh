@@ -1,5 +1,6 @@
 #!/bin/bash
 
+declare -A coinDict
 echo "Welcome to Flip Coin Simulation"
 
 function flipCoin () {
@@ -17,15 +18,32 @@ function flipCoin () {
                                 headsOrTails+=T
                         fi
                 done
+		  addToDict $headsOrTails
 	done
+	calculatePercentage $numOfFlips
 }
 
+function addToDict () {
+	coinDict[$1]=$((${coinDict[$1]}+1))
+}
+
+function calculatePercentage() {
+        for keys in ${!coinDict[@]}
+        do
+                coinDict[$keys]=`echo "scale=2; ${coinDict[$keys]}*100/$1" | bc`
+        done
+        echo -e "\nHeads Tails: ${!coinDict[@]}"
+        echo -e "\nPercentage: ${coinDict[@]}"
+}
 
 read -p "Dou you want to Flip (y/n)?: " input
 if [[ $input == "y" || $input == "Y" ]]
 then
 	read -p "Enter Number of times you want to Flip a coin: " num_of_flips
-	echo -e "Enter \n1.Singlet Combination"
+	echo -e "Enter \n1.Singlet Combination \n2.Doublet Combination"
 	read choice
 	flipCoin $num_of_flips $choice
 fi
+
+echo - "Heads tails: ${!cointDict[@]}
+
